@@ -84,16 +84,15 @@ return {
             require('mason-lspconfig').setup({
                 ensure_installed = {
                     'lua_ls',
-                    'sqlls',
+                    'sqls',
                     'gopls',
-                    'pyright',
-                    'ruff_lsp',
+                    'basedpyright',
+                    'ruff',
+                    'ruff-lsp',
                     -- Web development
                     'html',
-                    'cssls',
-                    'eslint',
-                    'tsserver',
-                    'tailwindcss'
+                    'biome',
+                    'ts_ls',
                 },
                 handlers = {
                     function(server_name)

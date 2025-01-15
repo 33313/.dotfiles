@@ -1,7 +1,4 @@
-working_directory = "C:/Users/myshkovsky"
-live_config_reload = true
-
-[shell]
+[terminal.shell]
 program = "pwsh"
 args = ["-nologo"]
 
@@ -46,3 +43,9 @@ white = "#000000"
 
 [colors.primary]
 background = "#000000"
+
+[general]
+live_config_reload = true
+working_directory = "C:/Users/333"
+
+[terminal]

@@ -1,1 +1,1 @@
-require("myshkovsky")
+require("config")
