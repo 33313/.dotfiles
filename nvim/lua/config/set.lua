@@ -18,18 +18,14 @@ vim.opt.termguicolors = true
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOMEPATH") .. "/.vim/undodir"
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 
 -- I LOOOOOOVE FILESYSTEMS 😻😻😻
-vim.opt.isfname = "@,48-57,/,\\,.,-,_,+,,,#,$,%,:,@-@,!,~,="
-
+vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
-
 vim.opt.colorcolumn = "80"
-
--- Python3 provider
-vim.g.python3_host_prog = os.getenv("HOMEPATH") .. "/.local/venv/nvim/Scripts/python"
+vim.g.python3_host_prog = "/bin/python3"
