@@ -1,4 +1,6 @@
 return {
+    -- TODO: Remove lsp-zero
+    -- https://lsp-zero.netlify.app/docs/guide/lazy-loading-with-lazy-nvim.html
     {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v4.x',
@@ -84,11 +86,9 @@ return {
             require('mason-lspconfig').setup({
                 ensure_installed = {
                     'lua_ls',
-                    'sqls',
                     'gopls',
                     'basedpyright',
                     'ruff',
-                    'ruff-lsp',
                     -- Web development
                     'html',
                     'biome',
