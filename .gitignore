@@ -6,6 +6,10 @@ lazy-lock.json
 
 # Languages
 ghc
+go/telemetry
 
 # Linux
 envman
+
+# WSL
+wslu
