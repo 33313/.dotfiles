@@ -8,8 +8,12 @@ lazy-lock.json
 ghc
 go/telemetry
 
-# Linux
+# Tools
+uv
 envman
+fastfetch
+nextjs-nodejs
 
 # WSL
 wslu
+
