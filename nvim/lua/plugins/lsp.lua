@@ -1,7 +1,6 @@
 return {
     {
         'williamboman/mason.nvim',
-        lazy = false,
         opts = {},
     },
     {
@@ -88,30 +87,12 @@ return {
                     'ruff',
                     -- Web development
                     'html',
-                    'biome',
                     'ts_ls',
+                    'cssls',
                 },
                 handlers = {
                     function(server_name)
-                        require('lspconfig')[server_name].setup({})
-                    end,
-                    biome = function()
-                        require('lspconfig').biome.setup({
-                            root_dir = function(fname)
-                                return require('lspconfig.util').root_pattern('package.json', 'tsconfig.json')(fname) or vim.loop.cwd()
-                            end,
-                        })
-                    end,
-                    ts_ls = function()
-                        require('lspconfig').ts_ls.setup({
-                            handlers = {
-                                ["textDocument/publishDiagnostics"] = function() end,
-                            },
-                            on_attach = function(client)
-                                client.server_capabilities.document_formatting = false
-                                client.server_capabilities.document_range_formatting = false
-                            end,
-                        })
+                        vim.lsp.enable(server_name)
                     end,
                 }
             })
