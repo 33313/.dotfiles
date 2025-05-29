@@ -28,3 +28,9 @@ vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
+
+-- Ctrl-Z display bug workaround
+local tf = vim.g.termfeatures or {}
+tf.osc52 = false
+vim.g.termfeatures = tf
+vim.g.clipboard = false
