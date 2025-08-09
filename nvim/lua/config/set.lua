@@ -15,6 +15,7 @@ vim.opt.incsearch = true
 vim.cmd([[set ignorecase smartcase]])
 
 vim.opt.termguicolors = true
+vim.opt.background = "dark"
 
 vim.opt.swapfile = false
 vim.opt.backup = false

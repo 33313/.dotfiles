@@ -1,11 +1,13 @@
-local function setTheme(theme)
-    theme = theme or "oxocarbon"
+---Sets a theme; equivalent of :colorscheme [theme]
+---@param theme string Name of the theme to use
+function setTheme(theme)
+    theme = theme or "tokyonight"
     vim.cmd.colorscheme(theme)
 end
 
 return {
-    { "nyoom-engineering/oxocarbon.nvim" },
-    { "rebelot/kanagawa.nvim" },
+    { "Mofiqul/vscode.nvim" },
+    { "tanvirtin/monokai.nvim" },
     {
         "folke/tokyonight.nvim",
         config = function()
@@ -20,8 +22,6 @@ return {
                     floats = "dark",
                 },
             })
-
-            setTheme("tokyonight")
         end
     }
 }

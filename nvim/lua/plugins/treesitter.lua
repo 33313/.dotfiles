@@ -29,5 +29,12 @@ return {
             -- Web
             "css", "tsx"
         })
+        vim.api.nvim_create_autocmd("BufReadPost", {
+            pattern = "*",
+            callback = function()
+                vim.treesitter.start()
+            end,
+            once = true,
+        })
     end
 }
