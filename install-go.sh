@@ -6,7 +6,7 @@ GO_DOWNLOAD_URL="https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz"
 wget -q --show-progress -O go.tar.gz "$GO_DOWNLOAD_URL"
 
 # Remove old, unpack new
-rm -rf "/usr/local/go/bin"
+rm -rf "/usr/local/go"
 tar -C "/usr/local" -xzf go.tar.gz
 rm go.tar.gz
 
