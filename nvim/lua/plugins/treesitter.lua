@@ -22,17 +22,27 @@ return {
     },
     config = function()
         require('nvim-treesitter').install({
-            -- Neovim deps
-            "c", "lua", "vim", "vimdoc", "markdown",
-            -- Languages
-            "javascript", "typescript", "query", "go", "gomod", "python",
-            -- Web
-            "css", "tsx"
+            "c",
+            "lua",
+            "vim",
+            "vimdoc",
+            "markdown",
+            "toml",
+            "bash",
+            "yaml",
+            "javascript",
+            "typescript",
+            "query",
+            "go",
+            "gomod",
+            "python",
+            "css",
+            "tsx"
         })
         vim.api.nvim_create_autocmd("BufReadPost", {
             pattern = "*",
             callback = function()
-                vim.treesitter.start()
+                pcall(vim.treesitter.start) -- errors for ft with no parser
             end,
             once = true,
         })

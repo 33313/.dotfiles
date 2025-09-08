@@ -85,10 +85,11 @@ return {
                     'gopls',
                     'basedpyright',
                     'ruff',
-                    -- Web development
                     'html',
                     'ts_ls',
                     'cssls',
+                    'yamlls',
+                    'jsonls'
                 },
                 handlers = {
                     function(server_name)
