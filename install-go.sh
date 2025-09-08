@@ -15,4 +15,14 @@ if ! grep -q "export PATH=/usr/local/go/bin:\$PATH" ~/.bashrc; then
     echo "export PATH=/usr/local/go/bin:\$PATH" >> ~/.bashrc
 fi
 
-export PATH="/usr/local/go/bin:$PATH"
+# Set GOROOT
+if ! grep -q "export GOROOT=/usr/local/go:\$PATH" ~/.bashrc; then
+    echo "export GOROOT=/usr/local/go:\$PATH" >> ~/.bashrc
+fi
+
+# Set GOPATH
+if ! grep -q "export GOPATH=\$HOME/go:\$PATH" ~/.bashrc; then
+    echo "export GOPATH=\$HOME/go:\$PATH" >> ~/.bashrc
+fi
+
+source ~/.bashrc
