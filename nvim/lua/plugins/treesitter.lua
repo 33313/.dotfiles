@@ -43,8 +43,7 @@ return {
             pattern = "*",
             callback = function()
                 pcall(vim.treesitter.start) -- errors for ft with no parser
-            end,
-            once = true,
+            end
         })
     end
 }
