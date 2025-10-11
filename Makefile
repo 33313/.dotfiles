@@ -1,9 +1,11 @@
 GO_VERSION := $(shell curl -s https://go.dev/VERSION?m=text | head -n 1 | sed 's/go//')
 GO_DOWNLOAD_URL := https://go.dev/dl/go$(GO_VERSION).linux-amd64.tar.gz
 
-.PHONY: all cli-tools treesitter c python nvm go neovim
+.PHONY: all neovim-only cli-tools treesitter c python nvm go neovim
 
 all: cli-tools treesitter c python nvm go neovim
+
+neovim-only: cli-tools treesitter c nvm neovim
 
 cli-tools:
 	sudo apt install curl fzf ripgrep gunzip -y
