@@ -1,12 +1,17 @@
 GO_VERSION := $(shell curl -s https://go.dev/VERSION?m=text | head -n 1 | sed 's/go//')
 GO_DOWNLOAD_URL := https://go.dev/dl/go$(GO_VERSION).linux-amd64.tar.gz
 
-.PHONY: all curl git c python nvm go neovim
+.PHONY: all cli-tools treesitter git c python nvm go neovim
 
-all: curl git c python nvm go neovim
+all: cli-tools treesitter git c python nvm go neovim
 
-curl:
-	sudo apt install curl -y
+cli-tools:
+	sudo apt install curl fzf ripgrep gunzip -y
+
+treesitter:
+	curl -LO https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-linux-x64.gz
+	gunzip tree-sitter-linux-x64.gz
+	mv ./tree-sitter-linux-x64 /usr/bin/tree-sitter
 
 git:
 	sudo add-apt-repository ppa:git-core/ppa
