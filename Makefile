@@ -8,7 +8,7 @@ all: cli-tools treesitter c python nvm go neovim
 neovim-only: cli-tools treesitter c nvm neovim
 
 cli-tools:
-	sudo apt install curl fzf ripgrep gunzip -y
+	sudo apt install curl fzf ripgrep -y
 
 treesitter:
 	curl -LO https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-linux-x64.gz
@@ -26,6 +26,7 @@ python:
 
 nvm:
 	curl -o- 'https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh' | bash
+	source ~/.bashrc
 	nvm install 23
 	nvm use 23
 
@@ -52,6 +53,7 @@ neovim:
 	sudo rm -rf /opt/nvim*
 	sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
 	sudo rm -f nvim-linux-x86_64.tar.gz
-	@if ! grep -q "export PATH=/opt/nvim-linux-x86_64/bin:\$PATH" ~/.bashrc; then \
-		echo "export PATH=/opt/nvim-linux-x86_64/bin:\$PATH" >> ~/.bashrc \
+	@if ! grep -q "export PATH=/opt/nvim-linux-x86_64/bin:\$$PATH" ~/.bashrc; then \
+		echo "export PATH=/opt/nvim-linux-x86_64/bin:\$$PATH" >> ~/.bashrc \
 	fi
+
