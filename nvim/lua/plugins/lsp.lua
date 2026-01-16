@@ -90,7 +90,9 @@ return {
                     'cssls',
                     'yamlls',
                     'jsonls',
-                    'clangd'
+                    'clangd',
+                    'docker_language_server',
+                    'astro'
                 },
                 handlers = {
                     function(server_name)
