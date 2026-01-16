@@ -1,53 +1,58 @@
-GO_VERSION := $(shell curl -s https://go.dev/VERSION?m=text | head -n 1 | sed 's/go//')
-GO_DOWNLOAD_URL := https://go.dev/dl/go$(GO_VERSION).linux-amd64.tar.gz
+SHELL := /bin/bash
+LOCAL := $(HOME)/.local
+LOCAL_BIN := $(LOCAL)/bin
 BASHRC := $(HOME)/.bashrc
 
-.PHONY: all neovim-only cli-tools
+GO_VERSION := $(shell curl -s https://go.dev/VERSION?m=text | head -n 1 | sed 's/go//')
+GO_URL := https://go.dev/dl/go$(GO_VERSION).linux-amd64.tar.gz
+NVIM_URL := https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+TS_URL := https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-linux-x64.gz
 
-all: /usr/bin/tree-sitter /usr/bin/gcc-14 /usr/bin/python3 $(HOME)/.nvm/nvm.sh /usr/local/go/bin/go /opt/nvim-linux-x86_64/bin/nvim
+.PHONY: help all nvim-only dep-all dep-nvim dir setup-path
 
-neovim-only: /usr/bin/tree-sitter /usr/bin/gcc-14 $(HOME)/.nvm/nvm.sh /opt/nvim-linux-x86_64/bin/nvim
+help:
+	@echo "Usage:"
+	@echo "  make nvim-only      # Install Neovim, Treesitter, NVM (Skip Go/GCC/Python)"
+	@echo "  make all            # Install everything (Recommended)"
 
-cli-tools:
-	sudo apt update && sudo apt install -y curl fzf ripgrep gzip
+dep-nvim:
+	apt-get update && apt-get install -y curl fzf ripgrep gzip
 
-/usr/bin/tree-sitter: cli-tools
-	curl -LO https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-linux-x64.gz
-	gunzip -f tree-sitter-linux-x64.gz
-	sudo chmod +x tree-sitter-linux-x64
-	sudo mv tree-sitter-linux-x64 /usr/bin/tree-sitter
+dep-all:
+	apt-get update && apt-get install -y curl fzf ripgrep gzip python3 python3-venv python3-pip gcc-14 g++-14 cmake
+	update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 333
+	update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 333
+	update-alternatives --set gcc /usr/bin/gcc-14
+	update-alternatives --set g++ /usr/bin/g++-14
 
-/usr/bin/gcc-14:
-	sudo apt update && sudo apt install -y gcc-14 g++-14 cmake
-	sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 333
-	sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 333
-	sudo update-alternatives --set gcc /usr/bin/gcc-14
-	sudo update-alternatives --set g++ /usr/bin/g++-14
+nvim-only: dir $(LOCAL_BIN)/tree-sitter $(LOCAL_BIN)/nvim $(HOME)/.nvm/nvm.sh setup-path
 
-/usr/bin/python3:
-	sudo apt update && sudo apt install -y python3 python3-venv python3-pip
-	python3 -m pip install --upgrade pip
+all: dir $(LOCAL_BIN)/tree-sitter $(LOCAL_BIN)/nvim $(LOCAL_BIN)/go $(HOME)/.nvm/nvm.sh setup-path
+
+dir:
+	@mkdir -p $(LOCAL_BIN)
+
+$(LOCAL_BIN)/tree-sitter:
+	curl -L $(TS_URL) -o $(LOCAL_BIN)/tree-sitter.gz
+	gunzip -f $(LOCAL_BIN)/tree-sitter.gz
+	chmod +x $(LOCAL_BIN)/tree-sitter
+
+$(LOCAL_BIN)/nvim:
+	rm -rf $(LOCAL)/nvim-linux64
+	curl -L $(NVIM_URL) | tar -xz -C $(LOCAL)
+	ln -sf $(LOCAL)/nvim-linux64/bin/nvim $(LOCAL_BIN)/nvim
+
+$(LOCAL_BIN)/go:
+	rm -rf $(LOCAL)/go
+	curl -L $(GO_URL) | tar -xz -C $(LOCAL)
+	ln -sf $(LOCAL)/go/bin/go $(LOCAL_BIN)/go
+	@grep -q 'export GOROOT=$(LOCAL)/go' $(BASHRC) || echo 'export GOROOT=$(LOCAL)/go' >> $(BASHRC)
+	@grep -q 'export GOPATH=$$HOME/go' $(BASHRC) || echo 'export GOPATH=$$HOME/go' >> $(BASHRC)
+	@grep -q 'export PATH=$$HOME/go/bin:$$PATH' $(BASHRC) || echo 'export PATH=$$HOME/go/bin:$$PATH' >> $(BASHRC)
 
 $(HOME)/.nvm/nvm.sh:
-	curl -o- 'https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh' | bash
-	source $(BASHRC)
-	nvm install 23
-	nvm use 23
+	[ -d "$(HOME)/.nvm" ] || curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 
-/usr/local/go/bin/go:
-	wget -q --show-progress -O go.tar.gz $(GO_DOWNLOAD_URL)
-	sudo rm -rf /usr/local/go
-	sudo tar -C /usr/local/ -xzf go.tar.gz
-	sudo rm -f go.tar.gz
-	@grep -q "export PATH=/usr/local/go/bin" $(BASHRC) || echo 'export PATH=/usr/local/go/bin:$$PATH' >> $(BASHRC)
-	@grep -q "export GOROOT=/usr/local/go" $(BASHRC) || echo 'export GOROOT=/usr/local/go' >> $(BASHRC)
-	@grep -q "export GOPATH=$$HOME/go" $(BASHRC) || echo 'export GOPATH=$$HOME/go' >> $(BASHRC)
-	@grep -q "export PATH=$$HOME/go/bin" $(BASHRC) || echo 'export PATH=$$HOME/go/bin:$$PATH' >> $(BASHRC)
-
-# Neovim
-/opt/nvim-linux-x86_64/bin/nvim:
-	curl -LO 'https://github.com/neovim/neovim/releases/stable/download/nvim-linux-x86_64.tar.gz'
-	sudo rm -rf /opt/nvim-linux-x86_64
-	sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
-	sudo rm -f nvim-linux-x86_64.tar.gz
-	@grep -q "export PATH=/opt/nvim-linux-x86_64/bin" $(BASHRC) || echo 'export PATH=/opt/nvim-linux-x86_64/bin:$$PATH' >> $(BASHRC)
+setup-path:
+	@grep -q 'export PATH=$(LOCAL_BIN):$$PATH' $(BASHRC) || echo 'export PATH=$(LOCAL_BIN):$$PATH' >> $(BASHRC)
+	@echo "Installation complete. Please run: source ~/.bashrc"
