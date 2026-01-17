@@ -15,7 +15,7 @@ make all
 If you DO have a `~/.config` directory: 
 ```bash
 cd ~ && git clone -b linux --depth 1 https://github.com/33313/.dotfiles.git
-cd .dotfiles && rm -rf .git && cp -r ./* ~/.config
+cd .dotfiles && rm -rf .git && cp -r ./* ~/.config && cd ~ && rm -rf .dotfiles && cd .config
 # You may either install everything (recommended) or skip Go, C, Python, etc.
 # For more info use: make help
 make all
