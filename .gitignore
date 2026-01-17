@@ -1,19 +1,15 @@
-# GitHub
+# Repo
 README.md
-
-# Neovim
 lazy-lock.json
 
-# Languages
-ghc
-go/telemetry
-
-# Tools
+# Local
 uv
+ghc
+wslu
+yarn
+astro
 envman
 fastfetch
+fontforge
+go/telemetry
 nextjs-nodejs
-
-# WSL
-wslu
-
