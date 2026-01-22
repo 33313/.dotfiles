@@ -90,6 +90,7 @@ While in a supported source file and with your cursor over a compatible object (
 | Command | Description |
 | ---- | ------- |
 | `Shift-k` | View information about selected object (same as hovering over it with your mouse in other IDEs). |
+| `<space>f` | Auto-format the current buffer. |
 | `<space>vrr` | Find references of selected object across all files in `pwd`. |
 | `<space>vrn` | Find and rename all references of selected object across all files in `pwd`. |
 | `<space>gd` | Go to definition of selected object. |
