@@ -13,6 +13,14 @@ hl.monitor({
 	scale = 1,
 })
 
+-- Pin workspaces to monitors: 1-5 primary (DP-1), 6-10 secondary (HDMI-A-2)
+for ws = 1, 5 do
+	hl.workspace_rule({ workspace = ws, monitor = "DP-1", default = true })
+end
+for ws = 6, 10 do
+	hl.workspace_rule({ workspace = ws, monitor = "HDMI-A-2", default = true })
+end
+
 -- Autostart
 -- See https://wiki.hypr.land/Configuring/Basics/Autostart/
 hl.on("hyprland.start", function()
