@@ -1,0 +1,54 @@
+vim.g.mapleader = " "
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+
+vim.keymap.set("x", "<leader>p", [["_dP]])
+
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
+
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+
+vim.keymap.set("i", "<C-c>", "<Esc>")
+
+vim.keymap.set("n", "Q", "<nop>")
+vim.keymap.set("n", "K", "<nop>")
+vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+
+vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+-- folke/todo-comments
+vim.keymap.set("n", "]t", function()
+	require("todo-comments").jump_next()
+end, { desc = "Next todo comment" })
+vim.keymap.set("n", "[t", function()
+	require("todo-comments").jump_prev()
+end, { desc = "Previous todo comment" })
+
+-- Macro QoL
+vim.keymap.set("n", "Q", "@qj")
+vim.keymap.set("x", "Q", ":norm @q<CR>")
+
+-- Markdown checkbox toggle
+vim.keymap.set("n", "<leader>c", function()
+	local line = vim.api.nvim_get_current_line()
+	if line:match("%[ %]") then
+		line = line:gsub("%[ %]", "[x]", 1)
+	elseif line:match("%[x%]") then
+		line = line:gsub("%[x%]", "[ ]", 1)
+	end
+	vim.api.nvim_set_current_line(line)
+end, { desc = "Toggle Markdown checkbox" })
