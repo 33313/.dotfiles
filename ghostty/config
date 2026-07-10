@@ -1,0 +1,40 @@
+# Charcoal & Amber — source of truth: ~/dev/desktop-theme.md
+
+foreground = #d6cfc4
+background = #131110
+selection-foreground = #d6cfc4
+selection-background = #3a332c
+cursor-color = #ece5d8
+cursor-text = #131110
+
+window-padding-x = 6
+window-padding-y = 6
+
+split-divider-color = #2c2621
+unfocused-split-fill = #1a1715
+unfocused-split-opacity = 0.85
+
+# black
+palette = 0=#201d1a
+palette = 8=#8f8578
+# red — clay (alert)
+palette = 1=#c4675c
+palette = 9=#d07f72
+# green — olive (ok)
+palette = 2=#a3a961
+palette = 10=#b5bb74
+# yellow — amber (accent)
+palette = 3=#d9a05b
+palette = 11=#e6b479
+# blue — slate
+palette = 4=#7d94a8
+palette = 12=#93a9bc
+# magenta — dusty mauve
+palette = 5=#b087a3
+palette = 13=#c29cb5
+# cyan — muted teal
+palette = 6=#8aa8a0
+palette = 14=#9fbcb4
+# white
+palette = 7=#d6cfc4
+palette = 15=#ece5d8
