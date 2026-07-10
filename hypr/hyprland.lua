@@ -65,7 +65,7 @@ hl.config({
 		border_size = 1,
 
 		col = {
-			active_border = { colors = { "rgba(5a5248ee)" } }, -- warm gray, brighter twin of inactive (theme: ~/dev/desktop-theme.md)
+			active_border = { colors = { "rgba(5a5248ee)" } }, -- warm gray, brighter twin of inactive
 			inactive_border = "rgba(2c2621aa)",
 		},
         -- Experimental fix for cursor icon getting stuck sometimes

@@ -1,4 +1,4 @@
--- Charcoal & Amber — tokyonight restyled. Source of truth: ~/dev/desktop-theme.md
+-- Charcoal & Amber — tokyonight restyled
 local p = {
     bg = "#131110",
     surface = "#1a1715",

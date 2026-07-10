@@ -4,7 +4,7 @@
 PACMAN := sudo pacman -S --needed
 
 DESKTOP := hyprland uwsm kitty ghostty cliphist wl-clipboard wl-clip-persist
-NVIM    := neovim ripgrep fzf gcc make unzip nodejs npm
+NVIM    := neovim ripgrep fzf gcc unzip nodejs npm
 
 .PHONY: help all desktop nvim check-arch
 

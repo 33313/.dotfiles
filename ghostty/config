@@ -1,4 +1,5 @@
-# Charcoal & Amber — source of truth: ~/dev/desktop-theme.md
+# Charcoal & Amber
+# Written without a ghostty install to test against — check with: ghostty +validate-config
 
 foreground = #d6cfc4
 background = #131110
@@ -11,8 +12,6 @@ window-padding-x = 6
 window-padding-y = 6
 
 split-divider-color = #2c2621
-unfocused-split-fill = #1a1715
-unfocused-split-opacity = 0.85
 
 # black
 palette = 0=#201d1a
