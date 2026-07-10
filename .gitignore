@@ -8,3 +8,5 @@
 !kitty/**
 !ghostty/
 !ghostty/**
+!README.md
+!Makefile
