@@ -1,41 +1,40 @@
+# Dotfiles (arch branch)
+
+Configs for an Arch/CachyOS + Hyprland desktop. This repo is designed to **be** `~/.config`: the `.gitignore` ignores everything by default and whitelists only what's tracked, so it coexists with the rest of your config directory.
+
+| Path | What it is |
+| ---- | ---------- |
+| `hypr/` | Hyprland config in Lua (`hyprland.lua`, keybinds in `hyprland/bind.lua`). Needs Hyprland ≥ 0.55 (native Lua config). |
+| `kitty/` | Kitty with the Charcoal & Amber palette (colors baked in). |
+| `ghostty/` | Same palette for Ghostty. |
+| `nvim/` | Neovim config — see below. |
+| `Makefile` | Installs the packages the configs depend on (pacman). |
+
 # Installation
-Run this command to check if you have a `~/.config` directory:
-```bash
-ls -a ~ | grep \\.config
-```
 
 If you DON'T have a `~/.config` directory:
 ```bash
-cd ~ && git clone -b linux --depth 1 https://github.com/33313/.dotfiles.git .config && cd .config && rm -rf .git
-# You may either install everything (recommended) or skip Go, C, Python, etc.
-# For more info use: make help
-make all
+git clone -b arch https://github.com/33313/.dotfiles.git ~/.config
+cd ~/.config && make all   # or: make help
 ```
 
-If you DO have a `~/.config` directory: 
-```bash
-cd ~ && git clone -b linux --depth 1 https://github.com/33313/.dotfiles.git
-cd .dotfiles && rm -rf .git && cp -r ./* ~/.config && cd ~ && rm -rf .dotfiles && cd .config
-# You may either install everything (recommended) or skip Go, C, Python, etc.
-# For more info use: make help
-make all
-```
-
-# Managing your configuration
-## Version tracking
-I highly recommend that you version track your dotfiles with git.
+If you DO have one (you almost certainly do), turn it into the repo in place:
 ```bash
 cd ~/.config
-git init
-git status # Check if you aren't adding anything you don't want to track and add it to the .gitignore file.
-git add . && git commit -m "init"
+git init -b arch
+git remote add origin https://github.com/33313/.dotfiles.git
+git fetch origin
+git checkout arch   # refuses to overwrite existing files — back those up and rerun
+make all
 ```
 
-> [!TIP]
-> Push your changes to a public repository like GitHub, Gitlab, or similar.
-> That way your dotfiles are always available and ready to go, wherever you are.
+> [!WARNING]
+> `hypr/hyprland.lua` pins monitors (`DP-1`, `HDMI-A-2`) and workspace layout to my hardware. Edit the `hl.monitor` blocks at the top before starting Hyprland, or you'll get whatever Hyprland guesses.
 
-When you make changes to your configuration, commit them with `git add . && git commit -m "feat(thing): add joy and happiness"`. This helps prevent hours of debugging a newly updated, broken configuration.
+Notes:
+* `make all` = `make desktop` + `make nvim`; run either alone if you only want half.
+* noctalia-shell (bar/launcher, autostarted from `hyprland.lua`) is in the CachyOS repos; on vanilla Arch get it from the AUR (`paru -S noctalia-shell`).
+* The cursor theme referenced in `hyprland.lua` (Notwaita-Black) isn't packaged here — install it separately or swap the `hl.env` lines to your own.
 
 # Neovim
 My config is built in a way that makes it really easy to modify.
@@ -61,14 +60,12 @@ To remove LSPs, you need to remove them from the `ensure_installed` list.
 Save your changes with `:w` and verify that they're working.
 
 ## Theme
-To add a new theme, first find one that is compatible with Neovim (usually denoted by `.nvim` in its name). Then:
+The colorscheme is tokyonight with the full palette overridden to Charcoal & Amber (`nvim/lua/plugins/colors.lua`), so the editor matches the terminals. To use a different theme:
 1. Open `nvim/lua/plugins/colors.lua`.
-2. In the `return` statement near the bottom, add a new item to the list: `{ "greg/myawesometheme.nvim" },`.
+2. In the `return` statement near the bottom, add a new item to the list: `{ "author/myawesometheme.nvim" },`.
 3. Save the file.
-4. Open `nvim/init.lua` and change `setTheme("some_theme_here")` to `setTheme("gregs_awesome_theme")`. Obviously, the actual names will vary and should be provided in the README of the theme you are installing.
+4. Open `nvim/init.lua` and change the `setTheme(...)` name to the one your new theme's README gives you.
 5. That's it! Restart your Neovim and enjoy your new theme.
-
-To remove a theme, open `nvim/lua/plugins/colors.lua` and remove anything you don't like, then save the file.
 
 ## Usage
 Some general usage tips specific to my config:
