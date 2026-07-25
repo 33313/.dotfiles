@@ -2,12 +2,13 @@ local mod = "SUPER"
 local term = "kitty"
 local fileManager = "dolphin"
 local menu = "fuzzel"
-local noctalia = "qs -c noctalia-shell ipc call "
+local noctalia = "noctalia msg "
 
 -- Noctalia
-hl.bind(mod .. " + L",         hl.dsp.exec_cmd(noctalia .. "lockScreen lock"))
+hl.bind(mod .. " + L",         hl.dsp.exec_cmd(noctalia .. "session lock"))
 hl.bind(mod .. " + PERIOD",    hl.dsp.exec_cmd("bemoji -t")) -- emoji picker (fuzzel UI, types via wtype)
-hl.bind(mod .. " + ESCAPE",    hl.dsp.exec_cmd(noctalia .. "sessionMenu toggle"))
+hl.bind(mod .. " + ESCAPE",    hl.dsp.exec_cmd(noctalia .. "panel-toggle session"))
+hl.bind(mod .. " + N",         hl.dsp.exec_cmd(noctalia .. "panel-toggle noctalia/notes:panel"))
 hl.bind(mod .. " + P",         hl.dsp.exec_cmd("hyprpicker -a"))
 
 -- Screenshot: slurp overlay to select a region -> satty editor -> save + clipboard
